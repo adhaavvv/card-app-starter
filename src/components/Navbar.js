@@ -15,7 +15,7 @@ export default function Navbar() {
         <NavLink to="/cards">
           Card List
         </NavLink>
-        <NavLink to="/add-card">
+        <NavLink to="/carts/new">
           Add Card
         </NavLink>
       </nav>
