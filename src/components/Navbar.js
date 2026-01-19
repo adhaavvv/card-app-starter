@@ -5,12 +5,18 @@ export default function Navbar() {
     - add links to CardList and AddCard pages 
     - style as a navbar UI */
 
-  return (
+    return (
     <header>
       <strong>Card App</strong>
       <nav>
         <NavLink to="/" end>
           Home
+        </NavLink>
+        <NavLink to="/cards">
+          Card List
+        </NavLink>
+        <NavLink to="/add-card">
+          Add Card
         </NavLink>
       </nav>
     </header>
