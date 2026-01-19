@@ -23,9 +23,32 @@ export async function getCards() {
   return res.json();
 }
 
-export function addCard(card) {
-  // TODO: implement POST /addcard
+export async function addCard(card) {
+  try {
+    const response = await fetch("/addcard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        card_name: card.card_name,
+        card_pic: card.card_pic,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to add card");
+    }
+
+    return data; // success message from backend
+  } catch (error) {
+    console.error("Error adding card:", error);
+    throw error;
+  }
 }
+
 
 export function updateCard(id, card) {
   // TODO: implement PUT /updatecard/:id
