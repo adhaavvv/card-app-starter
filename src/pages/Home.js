@@ -7,3 +7,4 @@ export default function Home() {
     - style as a landing page */
   return <main></main>;
 }
+  

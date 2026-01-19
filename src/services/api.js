@@ -5,7 +5,7 @@
  * 2) Set: REACT_APP_API_URL=https://YOUR-BACKEND.onrender.com
  * 3) Restart `npm start`
  */
-const API_URL = process.env.REACT_APP_API_URL || "";
+const API_URL = process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com/";
 
 /**
  * TODO: If your backend routes differ, update the paths here.
