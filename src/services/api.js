@@ -50,10 +50,47 @@ export async function addCard(card) {
 }
 
 
-export function updateCard(id, card) {
-  // TODO: implement PUT /updatecard/:id
+export async function updateCard(id, card) {
+  try {
+    const response = await fetch(`http://localhost:3000/updatecard/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        card_name: card.card_name,
+        card_pic: card.card_pic,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to update card");
+    }
+
+    return data; // success message from backend
+  } catch (error) {
+    console.error("Error updating card:", error);
+    throw error;
+  }
 }
 
-export function deleteCard(id) {
-  // TODO: implement DELETE /deletecard/:id
+export async function deleteCard(id) {
+  try {
+    const response = await fetch(`http://localhost:3000/deletecard/${id}`, {
+      method: "DELETE",
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to delete card");
+    }
+
+    return data; // success message from backend
+  } catch (error) {
+    console.error("Error deleting card:", error);
+    throw error;
+  }
 }
