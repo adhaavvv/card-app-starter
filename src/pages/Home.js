@@ -8,7 +8,8 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Welcome to Card App by cmi</h1>
+      <div>
+      <h1>Welcome to Card App by CMI!</h1>
       
       <section>
         <h2>Instructions:</h2>
@@ -27,6 +28,8 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      </div>
     </main>
   );
 }
