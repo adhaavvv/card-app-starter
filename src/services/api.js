@@ -25,7 +25,7 @@ export async function getCards() {
 
 export async function addCard(card) {
   try {
-    const response = await fetch("http://localhost:3000/addcard", {
+    const response = await fetch("/addcard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export async function addCard(card) {
 
 export async function updateCard(id, card) {
   try {
-    const response = await fetch(`http://localhost:3000/updatecard/${id}`, {
+    const response = await fetch(`/updatecard/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export async function updateCard(id, card) {
 
 export async function deleteCard(id) {
   try {
-    const response = await fetch(`http://localhost:3000/deletecard/${id}`, {
+    const response = await fetch(`/deletecard/${id}`, {
       method: "DELETE",
     });
 
@@ -89,7 +89,7 @@ export async function deleteCard(id) {
     }
 
     return data; // success message from backend
-  } catch (error) {
+  } catch (error) { 
     console.error("Error deleting card:", error);
     throw error;
   }
