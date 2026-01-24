@@ -22,7 +22,7 @@ export default function AddCard() {
     setBusy(true);
 
     const API_URL =
-      process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com/";
+      process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
 
     try {
       const res = await fetch(API_URL + "/addcard", {
