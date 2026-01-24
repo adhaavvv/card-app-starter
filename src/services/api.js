@@ -25,7 +25,7 @@ export async function getCards() {
 
 export async function addCard(card) {
   try {
-    const response = await fetch("/addcard", {
+    const response = await fetch("http://localhost:3000/addcard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
