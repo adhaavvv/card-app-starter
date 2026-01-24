@@ -28,7 +28,7 @@ export default function CardList() {
     setBusy(true);
     try {
       await deleteCard(card.id);
-      setCards(cards.filter((c) => c.id !== card.id));
+      setCards((prev) => prev.filter((c) => c.id !== card.id));
     } catch (error) {
       setError(error.message)
     } finally {

@@ -24,73 +24,41 @@ export async function getCards() {
 }
 
 export async function addCard(card) {
-  try {
-    const response = await fetch("/addcard", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        card_name: card.card_name,
-        card_pic: card.card_pic,
-      }),
-    });
+  const response = await fetch(`${API_URL}/addcard`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      card_name: card.card_name,
+      card_pic: card.card_pic,
+    }),
+  });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to add card");
-    }
-
-    return data; // success message from backend
-  } catch (error) {
-    console.error("Error adding card:", error);
-    throw error;
-  }
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "Failed to add card");
+  return data;
 }
 
-
 export async function updateCard(id, card) {
-  try {
-    const response = await fetch(`/updatecard/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        card_name: card.card_name,
-        card_pic: card.card_pic,
-      }),
-    });
+  const response = await fetch(`${API_URL}/updatecard/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      card_name: card.card_name,
+      card_pic: card.card_pic,
+    }),
+  });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to update card");
-    }
-
-    return data; // success message from backend
-  } catch (error) {
-    console.error("Error updating card:", error);
-    throw error;
-  }
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "Failed to update card");
+  return data;
 }
 
 export async function deleteCard(id) {
-  try {
-    const response = await fetch(`/deletecard/${id}`, {
-      method: "DELETE",
-    });
+  const response = await fetch(`${API_URL}/deletecard/${id}`, {
+    method: "DELETE",
+  });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to delete card");
-    }
-
-    return data; // success message from backend
-  } catch (error) { 
-    console.error("Error deleting card:", error);
-    throw error;
-  }
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "Failed to delete card");
+  return data;
 }
