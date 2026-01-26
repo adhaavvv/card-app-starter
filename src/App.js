@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CardList from "./pages/CardList";
 import AddCard from "./pages/AddCard";
 import EditCard from "./pages/EditCard";
+import Login from "./pages/Login";
 import "./App.css";
 
 export default function App() {
