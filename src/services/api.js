@@ -7,6 +7,12 @@
  */
 const API_URL = process.env.REACT_APP_API_URL || "";
 
+function authHeaders() {
+  const token = localStorage.getItem("token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+
 /**
  * TODO: If your backend routes differ, update the paths here.
  * Required endpoints:
@@ -16,6 +22,14 @@ const API_URL = process.env.REACT_APP_API_URL || "";
  * - DELETE /deletecard/:id
  */
 
+export async function login(credentials) {
+  return fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+}
+
 export async function getCards() {
   // GET /allcards (provided as reference)
   const res = await fetch(`${API_URL}/allcards`);
@@ -23,20 +37,28 @@ export async function getCards() {
   return res.json();
 }
 
-export async function addCard(card) {
-  const response = await fetch(`${API_URL}/addcard`, {
+export function addCard(card) {
+  return fetch(`${API_URL}/addcard`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      card_name: card.card_name,
-      card_pic: card.card_pic,
-    }),
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(card),
   });
-
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || "Failed to add card");
-  return data;
 }
+
+// export async function addCard(card) {
+//   const response = await fetch(`${API_URL}/addcard`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       card_name: card.card_name,
+//       card_pic: card.card_pic,
+//     }),
+//   });
+
+//   const data = await response.json();
+//   if (!response.ok) throw new Error(data.message || "Failed to add card");
+//   return data;
+// }
 
 export async function updateCard(id, card) {
   const response = await fetch(`${API_URL}/updatecard/${id}`, {
