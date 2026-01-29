@@ -7,24 +7,35 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
-  const [, setError] = useState("");
+  const [error, setError] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setBusy(true);
     setError("");
 
+
     try {
-      const res = await login({ username, password });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      const data = await login({ username, password }); // ✅ data = { token }
       localStorage.setItem("token", data.token);
       navigate("/cards");
     } catch (e) {
       console.error("Login failed", e);
+      setError(e.message || "Login failed");
     } finally {
       setBusy(false);
     }
+    
+    // try {
+    //   const data = await login({ username, password }); // data = { token }
+    //   localStorage.setItem("token", data.token);
+    //   navigate("/cards");
+    // } catch (e) {
+    //   console.error("Login failed", e);
+    // }
+    //  finally {
+    //   setBusy(false);
+    // }
   }
 
   return (
@@ -41,6 +52,7 @@ export default function Login() {
           {busy ? "Logging in..." : "Login"}
         </button>
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </main>
   );
 }

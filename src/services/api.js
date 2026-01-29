@@ -5,39 +5,107 @@ function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+// Helper: handle JSON + show backend error messages
+async function handleResponse(res) {
+  const text = await res.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    // not JSON
+  }
+
+  if (res.status === 401) {
+    // token missing/expired -> force logout
+    localStorage.removeItem("token");
+  }
+
+  if (!res.ok) {
+    throw new Error(data.error || data.message || text || `HTTP ${res.status}`);
+  }
+
+  return data;
+}
+
 export async function login(credentials) {
-  return fetch(`${API_URL}/login`, {
+  const res = await fetch(`${API_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
+  return handleResponse(res); // returns { token }
 }
 
 export async function getCards() {
   const res = await fetch(`${API_URL}/allcards`);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  return handleResponse(res);
 }
 
-export function addCard(card) {
-  return fetch(`${API_URL}/addcard`, {
+export async function addCard(card) {
+  const res = await fetch(`${API_URL}/addcard`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(card),
   });
+  return handleResponse(res);
 }
 
-export function updateCard(id, card) {
-  return fetch(`${API_URL}/updatecard/${id}`, {
+export async function updateCard(id, card) {
+  const res = await fetch(`${API_URL}/updatecard/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeaders() }, // ✅ add token
     body: JSON.stringify(card),
   });
+  return handleResponse(res);
 }
 
-export function deleteCard(id) {
-  return fetch(`${API_URL}/deletecard/${id}`, { method: "DELETE" });
+export async function deleteCard(id) {
+  const res = await fetch(`${API_URL}/deletecard/${id}`, {
+    method: "DELETE",
+    headers: { ...authHeaders() }, // ✅ add token
+  });
+  return handleResponse(res);
 }
+
+
+// function authHeaders() {
+//   const token = localStorage.getItem("token");
+//   return token ? { Authorization: `Bearer ${token}` } : {};
+// }
+
+// export async function login(credentials) {
+//   return fetch(`${API_URL}/login`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(credentials),
+//   });
+// }
+
+// export async function getCards() {
+//   const res = await fetch(`${API_URL}/allcards`);
+//   if (!res.ok) throw new Error(`HTTP ${res.status}`);
+//   return res.json();
+// }
+
+// export function addCard(card) {
+//   return fetch(`${API_URL}/addcard`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json", ...authHeaders() },
+//     body: JSON.stringify(card),
+//   });
+// }
+
+// export function updateCard(id, card) {
+//   return fetch(`${API_URL}/updatecard/${id}`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(card),
+//   });
+// }
+
+// export function deleteCard(id) {
+//   return fetch(`${API_URL}/deletecard/${id}`, { method: "DELETE" });
+// }
 
 
 

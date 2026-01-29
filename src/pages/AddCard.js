@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardForm from "../components/CardForm";
+import { addCard } from "../services/api";
 
 export default function AddCard() {
   const navigate = useNavigate();
@@ -18,24 +19,11 @@ export default function AddCard() {
   }
 
   async function handleSubmit(e) {
-    e?.preventDefault(); // ✅ stop page reload
+    e?.preventDefault();
     setError("");
     setBusy(true);
-  
-    const API_URL =
-      process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
-  
     try {
-      const res = await fetch(`${API_URL}/addcard`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-  
-      const data = await res.json();
-  
-      if (!res.ok) throw new Error(data.message || "Failed to add card");
-  
+      await addCard(values);
       navigate("/cards");
     } catch (err) {
       setError(err.message || "Failed to add card");
@@ -43,6 +31,35 @@ export default function AddCard() {
       setBusy(false);
     }
   }
+
+  // old async function handlesubmit
+
+  // async function handleSubmit(e) {
+  //   e?.preventDefault(); // ✅ stop page reload
+  //   setError("");
+  //   setBusy(true);
+  
+  //   const API_URL =
+  //     process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
+  
+  //   try {
+  //     const res = await fetch(`${API_URL}/addcard`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(values),
+  //     });
+  
+  //     const data = await res.json();
+  
+  //     if (!res.ok) throw new Error(data.message || "Failed to add card");
+  
+  //     navigate("/cards");
+  //   } catch (err) {
+  //     setError(err.message || "Failed to add card");
+  //   } finally {
+  //     setBusy(false);
+  //   }
+  // }
   
 
   // async function handleSubmit() {

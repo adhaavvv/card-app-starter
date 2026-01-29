@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CardForm from "../components/CardForm";
 import { getCards } from "../services/api";
+import { updateCard } from "../services/api";
 
 export default function EditCard() {
   const navigate = useNavigate();
@@ -52,26 +53,8 @@ export default function EditCard() {
   async function handleSubmit() {
     setError("");
     setBusy(true);
-
-    const API_URL =
-      process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
-
     try {
-      const res = await fetch(API_URL + "/updatecard/" + id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          card_name: values.card_name,
-          card_pic: values.card_pic,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to update card");
-      }
-
+      await updateCard(id, values);
       navigate("/cards");
     } catch (err) {
       setError(err.message || "Failed to update card");
@@ -79,6 +62,37 @@ export default function EditCard() {
       setBusy(false);
     }
   }
+
+  // async function handleSubmit() {
+  //   setError("");
+  //   setBusy(true);
+
+  //   const API_URL =
+  //     process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
+
+  //   try {
+  //     const res = await fetch(API_URL + "/updatecard/" + id, {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         card_name: values.card_name,
+  //         card_pic: values.card_pic,
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (!res.ok) {
+  //       throw new Error(data.message || "Failed to update card");
+  //     }
+
+  //     navigate("/cards");
+  //   } catch (err) {
+  //     setError(err.message || "Failed to update card");
+  //   } finally {
+  //     setBusy(false);
+  //   }
+  // }
 
   if (loading) {
     return (

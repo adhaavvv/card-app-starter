@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import CardList from "./pages/CardList";
 import AddCard from "./pages/AddCard";
@@ -15,8 +16,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element = {<Login />} />
         <Route path="/cards" element={<CardList />}/>
-        <Route path="/cards/new" element={<AddCard />}/>
-        <Route path="/cards/:id/edit" element={<EditCard/>}/>
+        <Route path="/cards/new" element={<ProtectedRoute><AddCard /></ProtectedRoute>}/>
+        <Route path="/cards/:id/edit" element={<ProtectedRoute><EditCard/></ProtectedRoute>}/>
       </Routes>
     </BrowserRouter>
   );
