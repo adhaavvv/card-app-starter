@@ -8,7 +8,7 @@ export default function CardForm({
 }) {
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit();
+    onSubmit(e);
   }
 
   function handleChange(e) {
