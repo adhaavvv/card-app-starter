@@ -5,9 +5,9 @@ import { getCards, deleteCard } from "../services/api";
 export default function CardList() {
 
   const [cards, setCards] = useState([]);
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   async function load() {
     try {
