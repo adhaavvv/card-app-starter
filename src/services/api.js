@@ -27,6 +27,16 @@ async function handleResponse(res) {
   return data;
 }
 
+export async function register(credentials) {
+  const res = await fetch(`${API_URL}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+  return handleResponse(res);
+}
+
+
 export async function login(credentials) {
   const res = await fetch(`${API_URL}/login`, {
     method: "POST",

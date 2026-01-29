@@ -6,6 +6,7 @@ import CardList from "./pages/CardList";
 import AddCard from "./pages/AddCard";
 import EditCard from "./pages/EditCard";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import "./App.css";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element = {<Login />} />
         <Route path="/cards" element={<CardList />}/>
         <Route path="/cards/new" element={<ProtectedRoute><AddCard /></ProtectedRoute>}/>
