@@ -7,7 +7,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
-  // const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
