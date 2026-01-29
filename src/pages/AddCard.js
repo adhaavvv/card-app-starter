@@ -32,67 +32,6 @@ export default function AddCard() {
     }
   }
 
-  // old async function handlesubmit
-
-  // async function handleSubmit(e) {
-  //   e?.preventDefault(); // ✅ stop page reload
-  //   setError("");
-  //   setBusy(true);
-  
-  //   const API_URL =
-  //     process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
-  
-  //   try {
-  //     const res = await fetch(`${API_URL}/addcard`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(values),
-  //     });
-  
-  //     const data = await res.json();
-  
-  //     if (!res.ok) throw new Error(data.message || "Failed to add card");
-  
-  //     navigate("/cards");
-  //   } catch (err) {
-  //     setError(err.message || "Failed to add card");
-  //   } finally {
-  //     setBusy(false);
-  //   }
-  // }
-  
-
-  // async function handleSubmit() {
-  //   setError("");
-  //   setBusy(true);
-
-  //   const API_URL =
-  //     process.env.REACT_APP_API_URL || "https://onlinecardwebappservice1.onrender.com";
-
-  //   try {
-  //     const res = await fetch(API_URL + "/addcard", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         card_name: values.card_name,
-  //         card_pic: values.card_pic,
-  //       }),
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (!res.ok) {
-  //       throw new Error(data.message || "Failed to add card");
-  //     }
-
-  //     navigate("/cards");
-  //   } catch (err) {
-  //     setError(err.message || "Failed to add card");
-  //   } finally {
-  //     setBusy(false);
-  //   }
-  // }
-
   return (
     <main>
       <h1>Add Card</h1>
