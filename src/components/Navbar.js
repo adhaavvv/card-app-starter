@@ -32,6 +32,12 @@ export default function Navbar() {
         >
           Add Card
         </NavLink>
+        <NavLink
+          to="/register"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Register
+        </NavLink>
         {token ? (
           <button
             onClick={() => {
